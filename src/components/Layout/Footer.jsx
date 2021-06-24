@@ -1,10 +1,8 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import { CoctailsContext } from "../Context/CoctailsContext";
 
 const alphabet = "abcdefghijklmnopqrstuvwxyz".toUpperCase().split("");
 function Footer() {
-  const { setCoctails } = useContext(CoctailsContext);
   return (
     <div className="footer">
       <div className="container">

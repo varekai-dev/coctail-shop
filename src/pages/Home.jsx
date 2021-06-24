@@ -22,7 +22,7 @@ export default function Home() {
       }
     };
     getCategories();
-  }, []);
+  }, [setCoctails, setData]);
   const onSortClick = (sortBy) => {
     if (sortBy === "All") {
       setCoctails(data);
