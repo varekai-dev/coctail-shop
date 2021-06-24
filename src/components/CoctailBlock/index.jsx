@@ -28,15 +28,19 @@ export default function CoctailBlock({ idDrink, strDrinkThumb, strDrink }) {
       size: activeSize,
       type: activeType,
     };
-
-    if (orders.some((order) => order.id === newOrder.id)) {
-      setOrders([
-        ...orders,
-        {
-          ...newOrder,
-          quantity: newOrder.quantity + 1,
-        },
-      ]);
+    console.log(newOrder.size);
+    const exist = orders.find((order) => order.id === newOrder.id);
+    if (exist) {
+      const newOrders = orders.map((order) =>
+        order.id === newOrder.id
+          ? {
+              ...exist,
+              quantity: exist.quantity + 1,
+              size: exist.size + newOrder.size,
+            }
+          : order
+      );
+      setOrders(newOrders);
     } else {
       setOrders([...orders, newOrder]);
     }

@@ -8,8 +8,7 @@ function Header() {
   const { orders } = useContext(CoctailsContext);
   const [isOpen, setOpen] = useState(false);
   const totalVolume = orders.reduce((total, order) => total + order.size, 0);
-  console.log(totalVolume);
-  const maxDrunk = 2000;
+
   const OpenModal = () => {
     setOpen(true);
   };
@@ -17,12 +16,6 @@ function Header() {
   const closeModalWindow = () => {
     setOpen(false);
   };
-
-  const completed = (totalVolume * 100) / maxDrunk;
-
-  if (completed >= 100) {
-    alert("🐾Воу тигре полегше🐾");
-  }
 
   return (
     <div className="header">
@@ -46,7 +39,6 @@ function Header() {
             closeModalWindow={closeModalWindow}
             isOpen={isOpen}
             orders={orders}
-            completed={completed}
           />
         </div>
       </div>

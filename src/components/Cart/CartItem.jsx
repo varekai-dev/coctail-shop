@@ -4,6 +4,15 @@ import { CoctailsContext } from "../Context/CoctailsContext";
 
 const CartItem = ({ id, img, quantity, size, title, type }) => {
   const { setOrders, orders } = useContext(CoctailsContext);
+
+  const removeItem = () => {
+    const newOrders = orders.filter((order) => order.id !== id);
+    setOrders(newOrders);
+  };
+  const addItem = () => {
+    const objIndex = orders.findIndex((obj) => obj.id === id);
+    setOrders([...orders, { ...orders[objIndex], quantity: 50 }]);
+  };
   return (
     <div className="cart__item">
       <div className="cart__item-img">
@@ -35,7 +44,10 @@ const CartItem = ({ id, img, quantity, size, title, type }) => {
           </svg>
         </div>
         <b>{quantity}</b>
-        <div className="button button--outline button--circle cart__item-count-plus">
+        <div
+          className="button button--outline button--circle cart__item-count-plus"
+          onClick={addItem}
+        >
           <svg
             width="10"
             height="10"
@@ -57,7 +69,7 @@ const CartItem = ({ id, img, quantity, size, title, type }) => {
       <div className="cart__item-price">
         <b>500₽</b>
       </div>
-      <div className="cart__item-remove">
+      <div className="cart__item-remove" onClick={removeItem}>
         <Button className="button--circle" outline>
           <svg
             width="10"
