@@ -1,0 +1,60 @@
+@import "../variables";
+
+#modal {
+  height: 100%;
+}
+.overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 2;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.modal {
+  padding: 40px;
+  background: $gray-line;
+  position: relative;
+  z-index: 3;
+  max-width: 600px;
+  width: 100%;
+  height: 100%;
+  &__empty {
+    p {
+      text-align: center;
+      margin-top: 10px;
+    }
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+    img {
+      width: 100%;
+    }
+  }
+  &__close {
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-size: 40px;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    color: darken($gray-line, 20%);
+    transition: all 0.3s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &:hover {
+      color: darken($gray-line, 40%);
+      transform: rotate(180deg);
+    }
+  }
+}

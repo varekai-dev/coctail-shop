@@ -1,12 +1,15 @@
-import axios from 'axios';
+import axios from "axios";
 
-axios.defaults.baseURL = 'https://www.thecocktaildb.com/api/json/v1/1';
+axios.defaults.baseURL = "https://www.thecocktaildb.com/api/json/v1/1";
 
 export const DB = {
-	getCategoryList() {
-		return axios.get('/list.php?c=list');
-	},
-	getCoctails() {
-		return axios.get('search.php?f=a');
-	}
+  getCategoryList() {
+    return axios.get("/list.php?c=list");
+  },
+  getCoctails() {
+    return axios.get("/search.php?f=a");
+  },
+  searchByCategory(category) {
+    return axios.get(`/filter.php?c=${category}`);
+  },
 };
