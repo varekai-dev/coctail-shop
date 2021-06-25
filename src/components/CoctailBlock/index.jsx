@@ -27,12 +27,15 @@ export default function CoctailBlock({ idDrink, strDrinkThumb, strDrink }) {
       quantity: 1,
       size: activeSize,
       type: activeType,
+      price: strDrink.charCodeAt(0) + strDrink.charCodeAt(1),
     };
-    console.log(newOrder.size);
-    const exist = orders.find((order) => order.id === newOrder.id);
+
+    const exist = orders.find(
+      (order) => order.id === newOrder.id && order.type === newOrder.type
+    );
     if (exist) {
       const newOrders = orders.map((order) =>
-        order.id === newOrder.id
+        order.id === newOrder.id && order.type === newOrder.type
           ? {
               ...exist,
               quantity: exist.quantity + 1,
