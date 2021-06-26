@@ -1,0 +1,29 @@
+.coctail {
+  &__inner {
+    display: flex;
+    justify-content: space-around;
+  }
+  &__content {
+    width: 100%;
+  }
+
+  &__recipe {
+    display: flex;
+    justify-content: space-between;
+    max-width: 300px;
+  }
+  &__ingridients {
+    div {
+      margin: 10px 0;
+    }
+  }
+  p {
+    margin-bottom: 20px;
+  }
+  h1 {
+    margin-bottom: 10px;
+  }
+  h2 {
+    margin-bottom: 20px;
+  }
+}

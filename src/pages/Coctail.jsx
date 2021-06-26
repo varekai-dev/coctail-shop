@@ -8,6 +8,8 @@ function Coctail({
   },
 }) {
   const [coctail, setCoctail] = useState(null);
+  const [ingridients, setIngridients] = useState(null);
+  const [measures, setMeasures] = useState(null);
   useEffect(() => {
     const fetchCoctail = async () => {
       try {
@@ -17,6 +19,19 @@ function Coctail({
           (item) => item.strDrink.toLowerCase() === id
         );
         setCoctail(filterData[0]);
+        const drinkEntries = Object.entries(filterData[0]);
+        const [ingredientsArray, measuresArray] = [
+          "strIngredient",
+          "strMeasure",
+        ].map((keyName) =>
+          drinkEntries
+            .filter(
+              ([key, value]) => key.startsWith(keyName) && value && value.trim()
+            )
+            .map(([key, value]) => value)
+        );
+        setIngridients(ingredientsArray);
+        setMeasures(measuresArray);
       } catch (e) {
         console.log("error", e);
       }
@@ -24,8 +39,39 @@ function Coctail({
     fetchCoctail();
   }, [id]);
 
+  useEffect(() => {}, [coctail]);
+
   return (
-    <div className="container">{coctail && <CoctailBlock {...coctail} />}</div>
+    <div className="coctail">
+      <div className="container">
+        <div className="coctail__inner">
+          {coctail && (
+            <>
+              <CoctailBlock {...coctail} />
+              <div className="coctail__content">
+                <h1>{coctail.strDrink}</h1>
+                <p>{coctail.strInstructions}</p>
+                <h2>Ingridients:</h2>
+                <div className="coctail__recipe">
+                  <div className="coctail__ingridients">
+                    {ingridients &&
+                      ingridients.map((ingridient, index) => (
+                        <div key={`${ingridient}_${index}`}>{ingridient}</div>
+                      ))}
+                  </div>
+                  <div className="coctail__ingridients">
+                    {measures &&
+                      measures.map((measure, index) => (
+                        <div key={`${measure}_${index}`}>{measure}</div>
+                      ))}
+                  </div>
+                </div>
+              </div>
+            </>
+          )}
+        </div>
+      </div>
+    </div>
   );
 }
 

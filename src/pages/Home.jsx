@@ -34,7 +34,7 @@ export default function Home() {
         <Categories />
         {/* <SortPopup onSortClick={onSortClick} /> */}
       </div>
-      <h2 className="content__title">All coctails</h2>
+      {/* <h2 className="content__title">All coctails</h2> */}
       <CoctailsList coctails={coctails} />
     </div>
   );
