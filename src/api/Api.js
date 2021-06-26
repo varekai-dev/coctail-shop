@@ -9,6 +9,12 @@ export const DB = {
   getCoctails() {
     return axios.get("/search.php?f=a");
   },
+  getCoctailsByLetter(letter) {
+    return axios.get(`/search.php?f=${letter}`);
+  },
+  getSingleCoctail(coctailName) {
+    return axios.get(`/search.php?s=${coctailName}`);
+  },
   searchByCategory(category) {
     return axios.get(`/filter.php?c=${category}`);
   },

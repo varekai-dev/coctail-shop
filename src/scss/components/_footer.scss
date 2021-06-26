@@ -4,6 +4,7 @@
   border-top: 1px solid $gray-line;
   padding: 40px 0;
   &__alphabet {
+    text-transform: uppercase;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -21,6 +22,10 @@
       width: 100%;
       height: 100%;
       &:hover {
+        background-color: $orange;
+        color: $gray-line;
+      }
+      &.active {
         background-color: $orange;
         color: $gray-line;
       }

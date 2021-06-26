@@ -17,27 +17,39 @@ function Categories() {
     };
     getCategories();
   }, []);
-  const [activeCategory, setActiveCategory] = useState(null);
+  const [activeCategory, setActiveCategory] = useState("All");
   const onClickCategory = async (category) => {
     setActiveCategory(category);
-    if (category !== "All") {
+
+    try {
+      const response = await Api.DB.searchByCategory(category);
+      const data = await response.data;
+      setData(data.drinks);
+      setCoctails(data.drinks);
+    } catch (e) {
+      console.log("error", e);
+    }
+  };
+  const resetCategories = () => {
+    const getCategories = async () => {
       try {
-        const response = await Api.DB.searchByCategory(category);
+        const response = await Api.DB.getCoctails();
         const data = await response.data;
-        setData(data.drinks);
         setCoctails(data.drinks);
+        setData(data.drinks);
       } catch (e) {
         console.log("error", e);
       }
-    }
+    };
+    setActiveCategory("All");
+    getCategories();
   };
-
   return (
     <div className="categories">
       <ul>
         <li
-          className={activeCategory === null ? "active" : ""}
-          onClick={() => onClickCategory(null)}
+          className={activeCategory === "All" ? "active" : ""}
+          onClick={resetCategories}
         >
           All
         </li>

@@ -58,3 +58,9 @@ body {
     margin-left: -80px;
   }
 }
+
+@media (max-width: 810px) {
+  .content__items {
+    margin-left: 0;
+  }
+}

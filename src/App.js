@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Home } from "./pages";
+import { Home, Coctails, Coctail } from "./pages";
 import { Route } from "react-router-dom";
 import { Layout } from "./components";
 
@@ -9,7 +9,17 @@ function App() {
     <div className="wrapper">
       <Layout>
         <div className="content">
-          <Route path="/" render={() => <Home />} exact />
+          <Route exact path="/" render={() => <Home />} />
+          <Route
+            exact
+            path="/coctail/:id"
+            render={(props) => <Coctail {...props} />}
+          />
+          <Route
+            exact
+            path="/coctails/:id"
+            render={(props) => <Coctails {...props} />}
+          />
         </div>
       </Layout>
     </div>

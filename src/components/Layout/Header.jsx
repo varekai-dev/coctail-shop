@@ -1,12 +1,16 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Logo from "../../assets/img/logo.png";
 import { IoCartOutline } from "react-icons/io5";
-import Modal from "../Cart";
+import Cart from "../Cart";
+import AOS from "aos";
 import { CoctailsContext } from "../Context/CoctailsContext";
+import { Link } from "react-router-dom";
+import classNames from "classnames";
 
 function Header() {
   const { orders } = useContext(CoctailsContext);
   const [isOpen, setOpen] = useState(false);
+  const [isScrolled, setScrolled] = useState(false);
   const totalVolume = orders.reduce((total, order) => total + order.size, 0);
 
   const OpenModal = () => {
@@ -17,17 +21,42 @@ function Header() {
     setOpen(false);
   };
 
+  const transitionNavBar = () => {
+    if (window.scrollY > 100) {
+      setScrolled(true);
+    } else {
+      setScrolled(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", transitionNavBar);
+    AOS.init({
+      duration: 2000,
+    });
+    return () => {
+      AOS.refresh();
+      window.removeEventListener("scroll", transitionNavBar);
+    };
+  }, []);
+
   return (
     <div className="header">
       <div className="container">
-        <div className="header__logo">
-          <img width="50" src={Logo} alt="Coctail logo" />
-          <div>
-            <h1>Coctails Bar</h1>
-            <p>Best coctails in whole world</p>
+        <Link to="/">
+          <div className="header__logo">
+            <img src={Logo} alt="Coctail logo" />
+            <div>
+              <h1>Coctails Bar</h1>
+              <p>Best coctails in whole world</p>
+            </div>
           </div>
-        </div>
-        <div className="header__cart">
+        </Link>
+        <div
+          className={classNames("header__cart", {
+            active: isScrolled === true,
+          })}
+        >
           <div className="button button--cart" onClick={OpenModal}>
             <span>{totalVolume} ml</span>
             <div className="button__delimiter"></div>
@@ -35,7 +64,7 @@ function Header() {
             <span>{orders.length}</span>
           </div>
 
-          <Modal
+          <Cart
             closeModalWindow={closeModalWindow}
             isOpen={isOpen}
             orders={orders}

@@ -3,6 +3,7 @@ import Button from "../Button";
 import { HiOutlinePlusSm } from "react-icons/hi";
 import classNames from "classnames";
 import { CoctailsContext } from "../Context/CoctailsContext";
+import { Link } from "react-router-dom";
 
 const availableSizes = [100, 200, 500];
 const availableTypes = ["Alcoholic", "Non alcoholic"];
@@ -50,11 +51,14 @@ export default function CoctailBlock({ idDrink, strDrinkThumb, strDrink }) {
   };
   return (
     <div className="coctail-block">
-      <img
-        className="coctail-block__image"
-        src={`${strDrinkThumb}/preview`}
-        alt="Coctail"
-      />
+      <Link to={`/coctail/${strDrink.toLowerCase()}`}>
+        <img
+          className="coctail-block__image"
+          src={`${strDrinkThumb}/preview`}
+          alt="Coctail"
+        />
+      </Link>
+
       <h4 className="coctail-block__title">{strDrink}</h4>
       <div className="coctail-block__selector">
         <ul>

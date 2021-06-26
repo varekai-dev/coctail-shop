@@ -7,7 +7,7 @@ import Progress from "react-progressbar";
 import { CoctailsContext } from "../Context/CoctailsContext";
 import Button from "../Button";
 
-const Modal = ({ isOpen, closeModalWindow }) => {
+const Cart = ({ isOpen, closeModalWindow }) => {
   const { orders, setOrders } = useContext(CoctailsContext);
   if (!isOpen) return null;
   const maxDrunk = 2000;
@@ -120,7 +120,7 @@ const Modal = ({ isOpen, closeModalWindow }) => {
         </div>
       </div>
     </div>,
-    document.getElementById("modal")
+    document.getElementById("cart")
   );
 };
-export default Modal;
+export default Cart;
