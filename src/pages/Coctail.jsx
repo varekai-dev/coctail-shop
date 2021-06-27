@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import Api from "../api";
+import { LoadingBlock } from "../components";
 import CoctailBlock from "../components/CoctailBlock";
-
+import useFetch from "../hooks/useFetch";
 function Coctail({
   match: {
     params: { id },
@@ -10,34 +10,28 @@ function Coctail({
   const [coctail, setCoctail] = useState(null);
   const [ingridients, setIngridients] = useState(null);
   const [measures, setMeasures] = useState(null);
+  const { data, loading } = useFetch(`/search.php?s=${id}`);
   useEffect(() => {
-    const fetchCoctail = async () => {
-      try {
-        const response = await Api.DB.getSingleCoctail(id);
-        const data = await response.data;
-        const filterData = await data.drinks.filter(
-          (item) => item.strDrink.toLowerCase() === id
-        );
-        setCoctail(filterData[0]);
-        const drinkEntries = Object.entries(filterData[0]);
-        const [ingredientsArray, measuresArray] = [
-          "strIngredient",
-          "strMeasure",
-        ].map((keyName) =>
-          drinkEntries
-            .filter(
-              ([key, value]) => key.startsWith(keyName) && value && value.trim()
-            )
-            .map(([key, value]) => value)
-        );
-        setIngridients(ingredientsArray);
-        setMeasures(measuresArray);
-      } catch (e) {
-        console.log("error", e);
-      }
-    };
-    fetchCoctail();
-  }, [id]);
+    if (data) {
+      const filterData = data.filter(
+        (item) => item.strDrink.toLowerCase() === id
+      );
+      setCoctail(filterData[0]);
+      const drinkEntries = Object.entries(filterData[0]);
+      const [ingredientsArray, measuresArray] = [
+        "strIngredient",
+        "strMeasure",
+      ].map((keyName) =>
+        drinkEntries
+          .filter(
+            ([key, value]) => key.startsWith(keyName) && value && value.trim()
+          )
+          .map(([key, value]) => value)
+      );
+      setIngridients(ingredientsArray);
+      setMeasures(measuresArray);
+    }
+  }, [data, setCoctail, id]);
 
   useEffect(() => {}, [coctail]);
 
@@ -45,7 +39,7 @@ function Coctail({
     <div className="coctail">
       <div className="container">
         <div className="coctail__inner">
-          {coctail && (
+          {loading ? (
             <>
               <CoctailBlock {...coctail} />
               <div className="coctail__content">
@@ -68,6 +62,8 @@ function Coctail({
                 </div>
               </div>
             </>
+          ) : (
+            <LoadingBlock />
           )}
         </div>
       </div>

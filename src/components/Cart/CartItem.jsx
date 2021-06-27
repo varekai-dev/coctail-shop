@@ -3,20 +3,22 @@ import Button from "../Button";
 import { CoctailsContext } from "../Context/CoctailsContext";
 import { BiMinus, BiPlus } from "react-icons/bi";
 import { IoMdClose } from "react-icons/io";
-const CartItem = ({ id, img, quantity, size, title, type, price }) => {
+const CartItem = ({ id, img, size, title, type, price }) => {
   const { setOrders, orders } = useContext(CoctailsContext);
 
   const exist = orders.find((order) => order.id === id && order.type === type);
 
   const removeItem = () => {
-    const newOrders = orders.filter((order) => order.id !== id);
+    if (exist) {
+    }
+    const newOrders = orders.filter((order) => order !== exist);
     setOrders(newOrders);
   };
 
   const plusItem = () => {
     if (exist) {
       const newOrders = orders.map((order) =>
-        order.id === id && order.type === type
+        order === exist
           ? {
               ...exist,
 
@@ -30,7 +32,7 @@ const CartItem = ({ id, img, quantity, size, title, type, price }) => {
   const minusItem = () => {
     if (exist) {
       const newOrders = orders.map((order) =>
-        order.id === id && order.type === type && order.size !== 100
+        order === exist
           ? {
               ...exist,
               size: exist.size - 100,

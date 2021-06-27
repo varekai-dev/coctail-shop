@@ -24,7 +24,6 @@ function Categories() {
     try {
       const response = await Api.DB.searchByCategory(category);
       const data = await response.data;
-      setData(data.drinks);
       setCoctails(data.drinks);
     } catch (e) {
       console.log("error", e);

@@ -25,7 +25,6 @@ export default function CoctailBlock({ idDrink, strDrinkThumb, strDrink }) {
       id: idDrink,
       img: strDrinkThumb,
       title: strDrink,
-      quantity: 1,
       size: activeSize,
       type: activeType,
       price: strDrink.charCodeAt(0) + strDrink.charCodeAt(1),
@@ -39,7 +38,6 @@ export default function CoctailBlock({ idDrink, strDrinkThumb, strDrink }) {
         order.id === newOrder.id && order.type === newOrder.type
           ? {
               ...exist,
-              quantity: exist.quantity + 1,
               size: exist.size + newOrder.size,
             }
           : order

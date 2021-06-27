@@ -7,9 +7,8 @@ import Progress from "react-progressbar";
 import { CoctailsContext } from "../Context/CoctailsContext";
 import Button from "../Button";
 
-const Cart = ({ isOpen, closeModalWindow }) => {
+const Cart = ({ closeModalWindow }) => {
   const { orders, setOrders } = useContext(CoctailsContext);
-  if (!isOpen) return null;
   const maxDrunk = 2000;
   const totalVolume = orders.reduce((total, order) => total + order.size, 0);
   const totalPriсe = orders.reduce(
@@ -27,7 +26,7 @@ const Cart = ({ isOpen, closeModalWindow }) => {
   };
 
   return reactDOM.createPortal(
-    <div className="overlay">
+    <div className="overlay" onClick={closeModalWindow}>
       <div className="cart">
         <div className="cart__top">
           <h1>Cart</h1>

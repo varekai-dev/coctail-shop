@@ -17,7 +17,10 @@ function Header() {
     setOpen(true);
   };
 
-  const closeModalWindow = () => {
+  const closeModalWindow = (e) => {
+    if (e.target.closest(".cart") && !e.target.closest(".cart__close")) {
+      return;
+    }
     setOpen(false);
   };
 
@@ -63,12 +66,9 @@ function Header() {
             <IoCartOutline />
             <span>{orders.length}</span>
           </div>
-
-          <Cart
-            closeModalWindow={closeModalWindow}
-            isOpen={isOpen}
-            orders={orders}
-          />
+          {isOpen && (
+            <Cart closeModalWindow={closeModalWindow} orders={orders} />
+          )}
         </div>
       </div>
     </div>

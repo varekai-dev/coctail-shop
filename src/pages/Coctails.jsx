@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Api from "../api";
 import { CoctailsList } from "../components";
+import useFetch from "../hooks/useFetch";
 
 function Coctails({
   match: {
@@ -8,20 +8,11 @@ function Coctails({
   },
 }) {
   const [coctails, setCoctails] = useState([]);
+  const { data, loading } = useFetch(`/search.php?f=${id}`);
   useEffect(() => {
-    const fetchCoctail = async () => {
-      try {
-        const response = await Api.DB.getCoctailsByLetter(id);
-        const data = await response.data;
-        setCoctails(data.drinks);
-      } catch (e) {
-        console.log("error", e);
-      }
-    };
-    fetchCoctail();
-  }, [id]);
-
-  return <CoctailsList coctails={coctails} />;
+    setCoctails(data);
+  }, [data, setCoctails]);
+  return <CoctailsList coctails={coctails} loading={loading} />;
 }
 
 export default Coctails;
