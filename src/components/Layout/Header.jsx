@@ -6,11 +6,13 @@ import AOS from "aos";
 import { CoctailsContext } from "../Context/CoctailsContext";
 import { Link } from "react-router-dom";
 import classNames from "classnames";
+import SearchBlock from "../SearchBlock";
 
 function Header() {
   const { orders } = useContext(CoctailsContext);
   const [isOpen, setOpen] = useState(false);
   const [isScrolled, setScrolled] = useState(false);
+
   const totalVolume = orders.reduce((total, order) => total + order.size, 0);
 
   const OpenModal = () => {
@@ -55,6 +57,7 @@ function Header() {
             </div>
           </div>
         </Link>
+        <SearchBlock />
         <div
           className={classNames("header__cart", {
             active: isScrolled === true,

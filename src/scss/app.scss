@@ -30,12 +30,30 @@ body {
     flex-wrap: wrap;
     justify-content: flex-start;
     margin-left: -20px;
+    &.single-item {
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+      .content__title {
+        text-align: center;
+      }
+      .coctail-block {
+        margin-left: 0;
+      }
+    }
   }
 
   &__top {
     display: flex;
     align-items: center;
     justify-content: space-between;
+  }
+  &__notFound {
+    padding: 50px 0;
+    margin-left: 80px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
   }
 }
 
@@ -56,6 +74,9 @@ body {
 @media (max-width: 1080px) {
   .content__items {
     margin-left: -80px;
+    &.single-item {
+      margin-left: 0;
+    }
   }
 }
 @media (max-width: 1000px) {
@@ -67,6 +88,8 @@ body {
       width: 100%;
     }
   }
+}
+@media (max-width: 920px) {
 }
 
 @media (max-width: 810px) {

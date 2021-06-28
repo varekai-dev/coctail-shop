@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useContext } from "react";
 import Api from "../api";
+import useFetch from "../hooks/useFetch";
 import { CoctailsContext } from "./Context/CoctailsContext";
 
 function Categories() {
   const [categories, setCategories] = useState([]);
-  const { setCoctails, setData } = useContext(CoctailsContext);
+  const { setCoctails, activeCategory, setActiveCategory } =
+    useContext(CoctailsContext);
   useEffect(() => {
     const getCategories = async () => {
       try {
@@ -17,10 +19,9 @@ function Categories() {
     };
     getCategories();
   }, []);
-  const [activeCategory, setActiveCategory] = useState("All");
-  const onClickCategory = async (category) => {
-    setActiveCategory(category);
 
+  const handleCategory = async (category) => {
+    setActiveCategory(category);
     try {
       const response = await Api.DB.searchByCategory(category);
       const data = await response.data;
@@ -29,42 +30,36 @@ function Categories() {
       console.log("error", e);
     }
   };
-  const resetCategories = () => {
-    const getCategories = async () => {
-      try {
-        const response = await Api.DB.getCoctails();
-        const data = await response.data;
-        setCoctails(data.drinks);
-        setData(data.drinks);
-      } catch (e) {
-        console.log("error", e);
-      }
-    };
-    setActiveCategory("All");
-    getCategories();
+
+  const { data } = useFetch("/random.php");
+  const fetchRandomCoctail = () => {
+    setCoctails(data);
+    setActiveCategory("Random");
   };
   return (
-    <div className="categories">
-      <ul>
-        <li
-          className={activeCategory === "All" ? "active" : ""}
-          onClick={resetCategories}
-        >
-          All
-        </li>
-        {categories.length > 0 &&
-          categories.map((category, index) => (
-            <li
-              onClick={() => onClickCategory(category.strCategory)}
-              className={
-                activeCategory === category.strCategory ? "active" : ""
-              }
-              key={`${category.strCategory}_${index}`}
-            >
-              {category.strCategory}
-            </li>
-          ))}
-      </ul>
+    <div className="container">
+      <div className="categories">
+        <ul>
+          <li
+            className={activeCategory === "Random" ? "active" : ""}
+            onClick={fetchRandomCoctail}
+          >
+            Random
+          </li>
+          {categories.length > 0 &&
+            categories.map((category, index) => (
+              <li
+                onClick={() => handleCategory(category.strCategory)}
+                className={
+                  activeCategory === category.strCategory ? "active" : ""
+                }
+                key={`${category.strCategory}_${index}`}
+              >
+                {category.strCategory}
+              </li>
+            ))}
+        </ul>
+      </div>
     </div>
   );
 }

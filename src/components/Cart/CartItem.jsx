@@ -31,6 +31,9 @@ const CartItem = ({ id, img, size, title, type, price }) => {
   };
   const minusItem = () => {
     if (exist) {
+      if (size === 100) {
+        return;
+      }
       const newOrders = orders.map((order) =>
         order === exist
           ? {

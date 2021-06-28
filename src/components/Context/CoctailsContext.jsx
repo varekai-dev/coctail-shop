@@ -5,12 +5,14 @@ export const CoctailsContext = createContext();
 function CoctailProvider({ children }) {
   const [coctails, setCoctails] = useState([]);
   const [orders, setOrders] = useState([]);
-
+  const [activeCategory, setActiveCategory] = useState("Random");
   const store = {
     coctails,
     setCoctails,
     orders,
     setOrders,
+    activeCategory,
+    setActiveCategory,
   };
   return (
     <CoctailsContext.Provider value={store}>

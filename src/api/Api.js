@@ -12,6 +12,9 @@ export const DB = {
   getCoctailsByLetter(letter) {
     return axios.get(`/search.php?f=${letter}`);
   },
+  getCoctailsByName(name) {
+    return axios.get(`search.php?i=${name}`);
+  },
   getSingleCoctail(coctailName) {
     return axios.get(`/search.php?s=${coctailName}`);
   },

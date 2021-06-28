@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { LoadingBlock } from "../components";
 import CoctailBlock from "../components/CoctailBlock";
 import useFetch from "../hooks/useFetch";
 function Coctail({
@@ -10,7 +9,7 @@ function Coctail({
   const [coctail, setCoctail] = useState(null);
   const [ingridients, setIngridients] = useState(null);
   const [measures, setMeasures] = useState(null);
-  const { data, loading } = useFetch(`/search.php?s=${id}`);
+  const { data } = useFetch(`/search.php?s=${id}`);
   useEffect(() => {
     if (data) {
       const filterData = data.filter(
@@ -33,13 +32,11 @@ function Coctail({
     }
   }, [data, setCoctail, id]);
 
-  useEffect(() => {}, [coctail]);
-
   return (
     <div className="coctail">
       <div className="container">
         <div className="coctail__inner">
-          {loading ? (
+          {coctail && (
             <>
               <CoctailBlock {...coctail} />
               <div className="coctail__content">
@@ -62,8 +59,6 @@ function Coctail({
                 </div>
               </div>
             </>
-          ) : (
-            <LoadingBlock />
           )}
         </div>
       </div>
