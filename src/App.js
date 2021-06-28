@@ -1,6 +1,5 @@
 import React from "react";
-
-import { Home, Coctails, Coctail } from "./pages";
+import { Home, Coctails, Coctail, Search } from "./pages";
 import { Route } from "react-router-dom";
 import { Layout } from "./components";
 
@@ -15,6 +14,7 @@ function App() {
             path="/coctail/:id"
             render={(props) => <Coctail {...props} />}
           />
+          <Route exact path="/coctails/" render={(props) => <Search />} />
           <Route
             exact
             path="/coctails/:id"

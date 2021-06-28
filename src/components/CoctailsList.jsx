@@ -3,15 +3,18 @@ import CoctailBlock from "./CoctailBlock";
 import LoadingBlock from "./CoctailBlock/LoadingBlock";
 import { CoctailsContext } from "../components/Context/CoctailsContext";
 import classNames from "classnames";
+import { useLocation } from "react-router-dom";
 
-function CoctailsList({ coctails }) {
+function CoctailsList({ coctails, loading }) {
+  const location = useLocation();
   const { activeCategory } = useContext(CoctailsContext);
 
   return (
     <div className="container">
       <div
         className={classNames("content__items", {
-          "single-item": activeCategory === "Random",
+          "single-item":
+            activeCategory === "Random" && location.pathname === "/",
         })}
       >
         {activeCategory === "Random" && (
@@ -21,7 +24,7 @@ function CoctailsList({ coctails }) {
           <p className="content__notFound">Nothing fould</p>
         ) : (
           <>
-            {coctails
+            {!loading && coctails
               ? coctails.map((coctail) => (
                   <CoctailBlock {...coctail} key={coctail.idDrink} />
                 ))
@@ -31,9 +34,9 @@ function CoctailsList({ coctails }) {
           </>
         )}
         {activeCategory === "Random" && (
-          <h2 className="content__title">
+          <h3 className="content__title">
             Для вибору коктейлю скористайтесь пошуком або фільтром
-          </h2>
+          </h3>
         )}
       </div>
     </div>

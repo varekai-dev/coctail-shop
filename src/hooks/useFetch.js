@@ -4,26 +4,26 @@ import axios from "axios";
 const URI = "https://www.thecocktaildb.com/api/json/v1/1";
 
 const useFetch = (url) => {
-  const [state, setState] = useState({
-    loding: false,
-    data: undefined,
-  });
+  const [data, setData] = useState(undefined);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
       try {
-        setState((prev) => ({ ...prev, loading: true }));
+        setLoading(true);
         const response = await axios(`${URI}${url}`);
-        setState(() => ({ data: response.data.drinks, loading: false }));
+        setData(response.data.drinks);
+
+        setLoading(false);
       } catch (e) {
         console.log("Error:", e);
-        setState((prev) => ({ ...prev, loading: false }));
+        setLoading(false);
       }
     }
 
     fetchData();
   }, [url]);
-  return { ...state };
+  return { data, loading };
 };
 
 export default useFetch;

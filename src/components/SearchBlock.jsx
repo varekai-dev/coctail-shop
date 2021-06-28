@@ -7,12 +7,20 @@ function SearchBlock() {
   const [searchInput, setSearchInput] = useState("");
 
   const handleSearch = () => {
+    if (searchInput.trim() === "") {
+      return;
+    }
+    setSearchInput("");
     history.push(`/?search=${searchInput}`);
   };
 
   const handleEnter = (e) => {
+    if (searchInput.trim() === "") {
+      return;
+    }
     if (e.keyCode === 13) {
-      history.push(`/?search=${searchInput}`);
+      setSearchInput("");
+      history.push(`/coctails/?search=${searchInput}`);
     }
   };
   return (
