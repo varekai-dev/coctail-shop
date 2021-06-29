@@ -30,7 +30,6 @@ function Categories() {
     setCoctails(data);
   }, [data, setCoctails]);
 
-  console.log("data", data);
   const fetchRandomCoctail = () => {
     setCoctails(data);
     setActiveCategory("Random");

@@ -5,12 +5,14 @@ import useFetch from "../hooks/useFetch";
 
 export default function Home() {
   const { setCoctails, coctails, activeCategory } = useContext(CoctailsContext);
-  const { data, loading } = useFetch("/random.php");
+  const url =
+    activeCategory === "Random"
+      ? "/random.php"
+      : `/filter.php?c=${activeCategory}`;
+  const { data, loading } = useFetch(url);
   useEffect(() => {
-    if (activeCategory === "Random") {
-      setCoctails(data);
-    }
-  }, [data, setCoctails, activeCategory]);
+    setCoctails(data);
+  }, [data, setCoctails]);
 
   return (
     <>

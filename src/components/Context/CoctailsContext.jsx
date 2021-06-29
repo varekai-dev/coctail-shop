@@ -6,12 +6,15 @@ function CoctailProvider({ children }) {
   const [coctails, setCoctails] = useState([]);
   const [orders, setOrders] = useState([]);
   const [activeCategory, setActiveCategory] = useState("Random");
+  const [newOrder, setNewOrder] = useState(null);
   const store = {
     coctails,
     setCoctails,
     orders,
     setOrders,
     activeCategory,
+    newOrder,
+    setNewOrder,
     setActiveCategory,
   };
   return (

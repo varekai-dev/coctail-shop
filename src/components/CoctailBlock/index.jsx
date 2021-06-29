@@ -4,6 +4,8 @@ import { HiOutlinePlusSm } from "react-icons/hi";
 import classNames from "classnames";
 import { CoctailsContext } from "../Context/CoctailsContext";
 import { Link } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "./main.scss";
 
 const availableSizes = [100, 200, 500];
 const availableTypes = ["Alcoholic", "Non alcoholic"];
@@ -45,10 +47,29 @@ export default function CoctailBlock({ idDrink, strDrinkThumb, strDrink }) {
       setOrders(newOrders);
     } else {
       setOrders([...orders, newOrder]);
+      console.log("test");
+      const notify = () =>
+        toast.success(
+          `${newOrder.title} size:${newOrder.size} ml added to cart `
+        );
+
+      notify();
     }
   };
+
   return (
     <div className="coctail-block">
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={true}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <Link to={`/coctail/${strDrink.toLowerCase()}`}>
         <img
           className="coctail-block__image"
