@@ -5,6 +5,7 @@ import { CoctailsContext } from "./Context/CoctailsContext";
 
 function Categories() {
   const [categories, setCategories] = useState([]);
+  const [link, setLink] = useState("/random.php");
   const { setCoctails, activeCategory, setActiveCategory } =
     useContext(CoctailsContext);
   useEffect(() => {
@@ -19,15 +20,17 @@ function Categories() {
     };
     getCategories();
   }, []);
-
-  const { data: categoryData } = useFetch(`/filter.php?c=${activeCategory}`);
+  const { data } = useFetch(link);
 
   const handleCategory = (category) => {
     setActiveCategory(category);
-    setCoctails(categoryData);
+    setLink(`/filter.php?c=${category}`);
   };
+  useEffect(() => {
+    setCoctails(data);
+  }, [data, setCoctails]);
 
-  const { data } = useFetch("/random.php");
+  console.log("data", data);
   const fetchRandomCoctail = () => {
     setCoctails(data);
     setActiveCategory("Random");
