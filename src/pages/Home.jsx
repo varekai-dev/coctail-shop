@@ -4,11 +4,13 @@ import { CoctailsContext } from "../components/Context/CoctailsContext";
 import useFetch from "../hooks/useFetch";
 
 export default function Home() {
-  const { setCoctails, coctails } = useContext(CoctailsContext);
+  const { setCoctails, coctails, activeCategory } = useContext(CoctailsContext);
   const { data, loading } = useFetch("/random.php");
   useEffect(() => {
-    setCoctails(data);
-  }, [data, setCoctails]);
+    if (activeCategory === "Random") {
+      setCoctails(data);
+    }
+  }, [data, setCoctails, activeCategory]);
 
   return (
     <>

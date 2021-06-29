@@ -9,12 +9,8 @@ import Button from "../Button";
 
 const Cart = ({ closeModalWindow }) => {
   const { orders, setOrders } = useContext(CoctailsContext);
-  if (orders.length === 0) {
-    alert("Спочатку оберіть коктейль");
-  }
   const maxDrunk = 2000;
   const alcoDrinks = orders.filter((order) => order.type === "Alcoholic");
-
   const totalVolume = alcoDrinks.reduce(
     (total, order) => total + order.size,
     0

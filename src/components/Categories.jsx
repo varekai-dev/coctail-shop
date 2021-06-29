@@ -20,15 +20,11 @@ function Categories() {
     getCategories();
   }, []);
 
-  const handleCategory = async (category) => {
+  const { data: categoryData } = useFetch(`/filter.php?c=${activeCategory}`);
+
+  const handleCategory = (category) => {
     setActiveCategory(category);
-    try {
-      const response = await Api.DB.searchByCategory(category);
-      const data = await response.data;
-      setCoctails(data.drinks);
-    } catch (e) {
-      console.log("error", e);
-    }
+    setCoctails(categoryData);
   };
 
   const { data } = useFetch("/random.php");
