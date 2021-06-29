@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import CoctailBlock from "../components/CoctailBlock";
 import useFetch from "../hooks/useFetch";
-function Coctail({
-  match: {
-    params: { id },
-  },
-}) {
+function Coctail() {
+  const { id } = useParams();
   const [coctail, setCoctail] = useState(null);
   const [ingridients, setIngridients] = useState(null);
   const [measures, setMeasures] = useState(null);

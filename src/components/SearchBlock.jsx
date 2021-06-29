@@ -20,7 +20,7 @@ function SearchBlock() {
     }
     if (e.keyCode === 13) {
       setSearchInput("");
-      history.push(`/coctails/?search=${searchInput}`);
+      history.push(`/coctails/1?search=${searchInput}`);
     }
   };
   return (
