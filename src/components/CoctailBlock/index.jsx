@@ -4,13 +4,18 @@ import { HiOutlinePlusSm } from "react-icons/hi";
 import classNames from "classnames";
 import { CoctailsContext } from "../Context/CoctailsContext";
 import { Link } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+
 import "./main.scss";
 
 const availableSizes = [100, 200, 500];
 const availableTypes = ["Alcoholic", "Non alcoholic"];
 
-export default function CoctailBlock({ idDrink, strDrinkThumb, strDrink }) {
+export default function CoctailBlock({
+  notify,
+  idDrink,
+  strDrinkThumb,
+  strDrink,
+}) {
   const { setOrders, orders } = useContext(CoctailsContext);
 
   const [activeSize, setActiveSize] = React.useState(availableSizes[0]);
@@ -31,6 +36,7 @@ export default function CoctailBlock({ idDrink, strDrinkThumb, strDrink }) {
       type: activeType,
       price: strDrink.charCodeAt(0) + strDrink.charCodeAt(1),
     };
+    console.log(newOrder);
 
     const exist = orders.find(
       (order) => order.id === newOrder.id && order.type === newOrder.type
@@ -47,77 +53,63 @@ export default function CoctailBlock({ idDrink, strDrinkThumb, strDrink }) {
       setOrders(newOrders);
     } else {
       setOrders([...orders, newOrder]);
-      console.log("test");
-      const notify = () =>
-        toast.success(
-          `${newOrder.title} size:${newOrder.size} ml added to cart `
-        );
-
-      notify();
     }
+
+    notify(newOrder.title, newOrder.size);
   };
 
   return (
-    <div className="coctail-block">
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={true}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
-      <Link to={`/coctail/${strDrink.toLowerCase()}`}>
-        <img
-          className="coctail-block__image"
-          src={`${strDrinkThumb}/preview`}
-          alt="Coctail"
-        />
-      </Link>
+    <>
+      <div className="coctail-block">
+        <Link to={`/coctail/${strDrink.toLowerCase()}`}>
+          <img
+            className="coctail-block__image"
+            src={`${strDrinkThumb}/preview`}
+            alt="Coctail"
+          />
+        </Link>
 
-      <h4 className="coctail-block__title">{strDrink}</h4>
-      <div className="coctail-block__selector">
-        <ul>
-          {availableTypes.map((type) => (
-            <li
-              key={type}
-              onClick={() => onSelectType(type)}
-              className={classNames({
-                active: activeType === type,
-              })}
-            >
-              {type}
-            </li>
-          ))}
-        </ul>
+        <h4 className="coctail-block__title">{strDrink}</h4>
+        <div className="coctail-block__selector">
+          <ul>
+            {availableTypes.map((type) => (
+              <li
+                key={type}
+                onClick={() => onSelectType(type)}
+                className={classNames({
+                  active: activeType === type,
+                })}
+              >
+                {type}
+              </li>
+            ))}
+          </ul>
 
-        <ul>
-          {availableSizes.map((size) => (
-            <li
-              key={size}
-              onClick={() => onSelectSize(size)}
-              className={classNames({
-                active: activeSize === size,
-              })}
-            >
-              {size} ml
-            </li>
-          ))}
-        </ul>
-      </div>
-      <div className="coctail-block__bottom">
-        <div className="coctail-block__price">
-          from {strDrink.charCodeAt(0) + strDrink.charCodeAt(1)} uah
+          <ul>
+            {availableSizes.map((size) => (
+              <li
+                key={size}
+                onClick={() => onSelectSize(size)}
+                className={classNames({
+                  active: activeSize === size,
+                })}
+              >
+                {size} ml
+              </li>
+            ))}
+          </ul>
         </div>
-        <Button className="button--add" outline onClick={handleOrder}>
-          <HiOutlinePlusSm />
-          <span>Add</span>
-          <i>1</i>
-        </Button>
+        <div className="coctail-block__bottom">
+          <div className="coctail-block__price">
+            from {strDrink.charCodeAt(0) + strDrink.charCodeAt(1)} uah
+          </div>
+          <Button className="button--add" outline onClick={handleOrder}>
+            <HiOutlinePlusSm />
+            <span>Add</span>
+            <i>1</i>
+          </Button>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
