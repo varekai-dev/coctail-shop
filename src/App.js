@@ -10,8 +10,8 @@ function App() {
         <div className="content">
           <Route exact path="/" render={() => <Home />} />
           <Route path="/coctail/:id" component={Coctail} />
-          <Route path="/coctails/:id" component={Coctails} />
-          <Route path="/coctails/" component={Coctails} />
+          <Route exact path="/coctails/:id" component={Coctails} />
+          <Route exact path="/coctails/" component={Coctails} />
         </div>
       </Layout>
     </div>

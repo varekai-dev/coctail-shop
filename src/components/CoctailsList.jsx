@@ -52,11 +52,6 @@ function CoctailsList({ coctails, loading }) {
                     .map((_, index) => <LoadingBlock key={index} />)}
             </>
           )}
-          {activeCategory === "Random" && (
-            <h3 className="content__title">
-              Для вибору коктейлю скористайтесь пошуком або фільтром
-            </h3>
-          )}
         </div>
       </div>
     </>

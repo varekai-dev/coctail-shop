@@ -17,6 +17,7 @@ function Coctails() {
   const { coctails, setCoctails, setActiveCategory } =
     useContext(CoctailsContext);
   const { data, loading } = useFetch(url);
+  console.log(data);
   useEffect(() => {
     setActiveCategory(null);
     setCoctails(data);
